@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* respond to GET api for downloading. */
 router.get('/', function(req, res, next) {
-  res.send('Download scheduled!'); //You should see your file at 192.168.0.115/files/'+'');
+  res.send('Download scheduled! <br><small>-nkh</small>'); //You should see your file at 192.168.0.115/files/'+'');
 });
 
 module.exports = router;
