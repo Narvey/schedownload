@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+//var routes = require('./routes/index');
 var downloadit = require('./routes/downloadit');
 
 var app = express();
@@ -22,16 +22,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+//app.use('/', routes); //instead we'll just let public(above) handle index.html.
 app.use('/downloadit', downloadit);//this is where my script lives
-app.use('/files',express.static('/home/chip/bin/NodeServer/files'));//have static folder available
+app.use('/files', express.static('/home/chip/bin/NodeServer/files'));//have static folder available
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+//app.use(function(req, res, next) {
+//  var err = new Error('Not Found');
+//  err.status = 404;
+//  next(err);
+//});
 
 // error handlers
 
@@ -48,6 +49,7 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
+/*
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
@@ -56,5 +58,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+*/
 
 module.exports=app;

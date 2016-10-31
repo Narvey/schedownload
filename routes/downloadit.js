@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   fs.open('./downloads.sh','a+',function(err,fd) {
     if (err) return console.error(err);
     var params = req.url.split('?');
-    fs.write(fd, 'echo \"' + params + '\" >> /home/chip/bin/NodeServer/files/list.txt;');//TODO: sanitize input and actually wget.
+    fs.write(fd, 'echo \"' + params[1] + '\" >> /home/chip/bin/NodeServer/files/list.txt;');//TODO: sanitize input and actually wget.
   });
   res.send('Download scheduled! <br>'); //You should see your file at 192.168.0.115/files/'+'');
 });
