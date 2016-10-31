@@ -1,2 +1,2 @@
 echo "undefined" >> /home/chip/bin/NodeServer/files/list.txt;
-echo "/?lookilsek" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?newline" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?morejunk" >> /home/chip/bin/NodeServer/files/list.txt;echo "/,www.example.com" >> /home/chip/bin/NodeServer/files/list.txt;echo "/,test.example.com" >> /home/chip/bin/NodeServer/files/list.txt;echo "/,https://avatars3.githubusercontent.com/u/2171161,v=3&s=40" >> /home/chip/bin/NodeServer/files/list.txt;
+echo "/?lookilsek" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?newline" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?morejunk" >> /home/chip/bin/NodeServer/files/list.txt;
