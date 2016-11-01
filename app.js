@@ -4,9 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
+if (!Array.prototype.last) {
+  Array.prototype.last = function() {
+    return this[this.length - 1];
+  };
+};
 //var routes = require('./routes/index');
-var downloadit = require('./routes/downloadit');
+//var downloadit = require('./routes/downloadit');
 
 var app = express();
 
@@ -23,18 +29,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', routes); //instead we'll just let public(above) handle index.html.
-app.use('/downloadit', downloadit);//this is where my script lives
+app.get('/downloadit', function (req,res){
+  var reqUrl = req.url.replace(/\/downloadit[/?]*/,'');
+  fs.open('./downloads.sh','a+',function(err,fd) {
+    if (err) return console.error(err);
+    fs.write(fd, 'echo \"' + reqUrl + '\" >> /home/chip/bin/NodeServer/files/list.txt;');//TODO: sanitize input and actually wget.
+  });
+res.send('Download scheduled! <br>You should see your file at 192.168.0.115/files/'+reqUrl.split('/').last()+' tomorrow (and also on the thumbdrive).');
+});
 app.use('/files', express.static('/home/chip/bin/NodeServer/files'));//have static folder available
 
 
 // catch 404 and forward to error handler
-//app.use(function(req, res, next) {
-//  var err = new Error('Not Found');
-//  err.status = 404;
-//  next(err);
-//});
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+app.use(function(err, req, res, next) {
+  res.send(err.message);
+});
 
-// error handlers
+/* I didn't like the default error handlers, so commenting out.
 
 // development error handler
 // will print stacktrace
@@ -49,7 +65,6 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-/*
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
