@@ -1,2 +1,1 @@
-echo "undefined" >> /home/chip/bin/NodeServer/files/list.txt;
-echo "/?lookilsek" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?newline" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?morejunk" >> /home/chip/bin/NodeServer/files/list.txt;echo "/" >> /home/chip/bin/NodeServer/files/list.txt;echo "/?thing/other/thing" >> /home/chip/bin/NodeServer/files/list.txt;
+echo "nkhTest" >> /home/chip/bin/NodeServer/files/list.txt;
