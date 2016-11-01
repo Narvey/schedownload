@@ -1,1 +1,1 @@
-echo "nkhTest" >> /home/chip/bin/NodeServer/files/list.txt;
+echo "nkhTest" >> list.txt;

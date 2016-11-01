@@ -17,8 +17,8 @@ if (!Array.prototype.last) {
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -30,14 +30,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', routes); //instead we'll just let public(above) handle index.html.
 app.get('/downloadit', function (req,res){
-  var reqUrl = req.url.replace(/\/downloadit[/?]*/,'');
+  var reqUrl = req.url.replace(/\/downloadit[/?]*/, '');
+  reqUrl = reqUrl.replace('"', '%22');
   fs.open('./downloads.sh','a+',function(err,fd) {
     if (err) return console.error(err);
-    fs.write(fd, 'echo \"' + reqUrl + '\" >> /home/chip/bin/NodeServer/files/list.txt;');//TODO: sanitize input and actually wget.
+    fs.write(fd, 'wget \"' + reqUrl + '\";\r\n');//TODO: sanitize input and actually wget.
   });
-res.send('Download scheduled! <br>You should see your file at 192.168.0.115/files/'+reqUrl.split('/').last()+' tomorrow (and also on the thumbdrive).');
+  res.send('Download scheduled! <br>You should see your file at 192.168.0.115/files/'+reqUrl.split('/').last()+' tomorrow (and also on the thumbdrive).');
 });
-app.use('/files', express.static('/home/chip/bin/NodeServer/files'));//have static folder available
+app.use('/files', express.static(path.join(__dirname, '../files')));//have static folder available
 
 
 // catch 404 and forward to error handler
@@ -47,7 +48,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 app.use(function(err, req, res, next) {
-  res.send(err.message);
+  res.writeHead(404);
+  res.end(err.message);
+  
 });
 
 /* I didn't like the default error handlers, so commenting out.
