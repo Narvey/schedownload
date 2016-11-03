@@ -35,7 +35,7 @@ app.get('/downloadit', function (req,res){
     if (err) return console.error(err);
     fs.write(fd, 'wget \"' + reqUrl + '\";\r\n');//TODO: sanitize input and actually wget.
   });
-  res.send('Download scheduled! <br>You should see your file at 192.168.0.115/files/'+reqUrl.split('/').last()+' tomorrow (and also on the thumbdrive).');
+  res.send('Download scheduled! <br>You should see your file at 192.168.0.115:3000/files/'+reqUrl.split('/').last()+' tomorrow (and also on the thumbdrive).');
 });
 app.use('/files', express.static(path.join(__dirname, '../files')));//have static folder available
 
