@@ -7,11 +7,14 @@ fi
 
 if lsblk|grep sda1; then #if the thumbdrive is present
     mount /dev/sda1 /media/USB1/;
-    cp $sdpath/files/* /media/USB1/;
-    #uncomment the following line if you do NOT want files accessible from the server, but only from the thumbdrive.
-    #rm /home/chip/bin/NodeServer/files/*;
-    umount /dev/sda1;
-    echo "1">$sdpath/maydelete;
-else echo "downloads not copied at $(date)">>$sdpath/logs/cron.sh.log;echo "0">$sdpath/maydelete;
+elif lsblk|grep sda; then
+    mount /dev/sda /media/USB1/;
+fi
+if cp $sdpath/files/* /media/USB1/;
+        #uncomment the following line if you do NOT want files accessible from the server, but only from the thumbdrive.
+        #rm /home/chip/bin/NodeServer/files/*;
+        umount /dev/sda1;then
+    echo "$(date): Downloads copied to external drive">>$sdpath/logs/cron.sh.log;
+    else echo "$(date): thumbdrive not present">>$sdpath/logs/cron.sh.log
 fi
 
