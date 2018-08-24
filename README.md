@@ -1,4 +1,4 @@
-# Note: has vulnerable debug dependency. #
+# Note: has vulnerable debug dependency. Open an issue if you actually use this. #
 
 # Schedownload (sd) #
 
